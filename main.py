@@ -17,25 +17,25 @@ dbconnection.commit()
 dbconnection.close()
 
 # Add temp probe folder names from /esys/bus/w1/devices/
-#temp_probe1 = "28-001415ab5aff"
-#temp_probe2 = "28-0000054de6d5"
-#temp_probe3 = "28-001414c1dcff"
+temp_probe1 = "28-001415ab5aff"
+temp_probe2 = "28-0000054de6d5"
+temp_probe3 = "28-001414c1dcff"
 
 #Values for testing
-temp_probe1 = "device1"
-temp_probe2 = "device2"
-temp_probe3 = "device3"
+#temp_probe1 = "device1"
+#temp_probe2 = "device2"
+#temp_probe3 = "device3"
 
 device_list = [temp_probe1, temp_probe2, temp_probe3 ]
 
 # test values comment out in production
 # change base_dir to path for devices folders
-base_dir = '/home/alan/Python/closet_temp_controller/sample/'
+#base_dir = '/home/alan/Python/closet_temp_controller/sample/'
 
 
 
 # production values comment out to test
-#base_dir = '/sys/bus/w1/devices/'
+base_dir = '/sys/bus/w1/devices/'
 
 
 
@@ -75,9 +75,9 @@ while True:
     dbcursor = dbconnection.cursor()
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     dbcursor.execute(
-     '''INSERT INTO temps(date,device1, device2, device3) VALUES(?,?,?,?)''', (now, current_temps['device1'],
-                                                                        current_temps['device2'],
-                                                                        current_temps['device3']))
+     '''INSERT INTO temps(date,device1, device2, device3) VALUES(?,?,?,?)''', (now, current_temps[temp_probe1],
+                                                                        current_temps[temp_probe2],
+                                                                        current_temps[temp_probe3]))
     dbconnection.commit()
     dbconnection.close()
     time.sleep(60)
