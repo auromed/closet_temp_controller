@@ -4,9 +4,6 @@ import glob
 import time
 import sqlite3
 from datetime import datetime
-import plotly.plotly as plot
-import plotly.tools as plottools
-
 
 # Commenting these out as they will be run at boot time
 #os.system('modprobe w1-gpio')
@@ -20,22 +17,29 @@ dbconnection.commit()
 dbconnection.close()
 
 # Add temp probe folder names from /esys/bus/w1/devices/
-temp_probe1 = "28-001415ab5aff"
-temp_probe2 = "28-0000054de6d5"
-temp_probe3 = "28-001414c1dcff"
+#temp_probe1 = "28-001415ab5aff"
+#temp_probe2 = "28-0000054de6d5"
+#temp_probe3 = "28-001414c1dcff"
+
+#Values for testing
+temp_probe1 = "device1"
+temp_probe2 = "device2"
+temp_probe3 = "device3"
+
+device_list = [temp_probe1, temp_probe2, temp_probe3 ]
 
 # test values comment out in production
 # change base_dir to path for devices folders
 base_dir = '/home/alan/Python/closet_temp_controller/sample/'
-device_list = ['device1', 'device2', 'device3']
+
 
 
 # production values comment out to test
 #base_dir = '/sys/bus/w1/devices/'
-#device_list = [temp_probe1, temp_probe2, temp_probe3 ]
 
 
 
+#Read a file instead of the modules for testing - Comment out in Production
 def read_temp_raw(current_file):
     f = open(current_file, 'r')
     lines = f.readlines()
