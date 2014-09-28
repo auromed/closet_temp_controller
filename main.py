@@ -4,6 +4,9 @@ import glob
 import time
 import sqlite3
 from datetime import datetime
+import plotly.plotly as plot
+import plotly.tools as plottools
+
 
 # Commenting these out as they will be run at boot time
 #os.system('modprobe w1-gpio')
@@ -54,33 +57,26 @@ def read_multiple_temp():
             lines = read_temp_raw()
         equals_pos = lines[1].find('t=')
         if equals_pos != -1:
-            temp_store = int(lines[1][equals_pos + 2:equals_pos + 7])
+#Store only 3 digits of the temperature by dropping the last 2 digits of the value
+            temp_store = int(lines[1][equals_pos + 2:equals_pos + 5])
         else:
             temp_c = 0000
         values[item] = temp_store
     return values
-
 
 while True:
     current_temps = read_multiple_temp()
     print current_temps
     dbconnection = sqlite3.connect('temperatures.db')
     dbcursor = dbconnection.cursor()
-    now = datetime.now()
-    #dbcursor.execute(
-    #    '''INSERT INTO temps(device1, device2, device3) VALUES(?,?,?)''', (temp_value1, temp_value2, temp_value3))
-    # Real execute commented out for testing
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     dbcursor.execute(
      '''INSERT INTO temps(date,device1, device2, device3) VALUES(?,?,?,?)''', (now, current_temps['device1'],
                                                                         current_temps['device2'],
                                                                         current_temps['device3']))
     dbconnection.commit()
     dbconnection.close()
-
-    time.sleep(5)
-
-
-
+    time.sleep(60)
 
 
 
