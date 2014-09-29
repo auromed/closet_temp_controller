@@ -17,25 +17,29 @@ dbconnection.commit()
 dbconnection.close()
 
 # Add temp probe folder names from /esys/bus/w1/devices/
-temp_probe1 = "28-001415ab5aff"
-temp_probe2 = "28-0000054de6d5"
-temp_probe3 = "28-001414c1dcff"
+#temp_probe1 = "28-001415ab5aff"
+#temp_probe2 = "28-0000054de6d5"
+#temp_probe3 = "28-001414c1dcff"
+
+# production directory values comment out to test
+#base_dir = '/sys/bus/w1/devices/'
 
 #Values for testing
-#temp_probe1 = "device1"
-#temp_probe2 = "device2"
-#temp_probe3 = "device3"
+# test values comment out in production
+# change base_dir to path for devices folders
+temp_probe1 = "device1"
+temp_probe2 = "device2"
+temp_probe3 = "device3"
+base_dir = '/home/alan/Python/closet_temp_controller/sample/'
 
 device_list = [temp_probe1, temp_probe2, temp_probe3 ]
 
-# test values comment out in production
-# change base_dir to path for devices folders
-#base_dir = '/home/alan/Python/closet_temp_controller/sample/'
 
 
 
-# production values comment out to test
-base_dir = '/sys/bus/w1/devices/'
+
+
+
 
 
 
@@ -80,7 +84,7 @@ while True:
                                                                         current_temps[temp_probe3]))
     dbconnection.commit()
     dbconnection.close()
-    time.sleep(60)
+    time.sleep(6)
 
 
 
